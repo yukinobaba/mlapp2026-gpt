@@ -7,7 +7,7 @@
 
 | 時期 | グループでやること |
 |---|---|
-| 10/30（第5回）授業内 | グループ名を決め、このリポジトリをテンプレートにしてグループのリポジトリを作る（下の手順）。全員が Kaggle の電話番号認証を済ませる／`model.py` を読み、講義の手順がどの行に当たるかを確かめる／担当の問いで、何を変えて何と比べるかを話し合う |
+| 10/30（第5回）授業内 | グループ名を決め、このリポジトリをテンプレートにしてグループの Private リポジトリを作る（下の手順）。全員が GitHub のトークンを作り、Kaggle に登録する。全員が Kaggle の電話番号認証を済ませる／`model.py` を読み、講義の手順がどの行に当たるかを確かめる／担当の問いで、何を変えて何と比べるかを話し合う |
 | 11/6（第6回）までに | 課題①：標準構成 S を seed 0・1 で学習し、結果を `results/` に残す／課題②の予測を、プルリクエストで提出する／担当の問いの、試す条件と予測を、プルリクエストで提出する |
 | 11/6（第6回）授業内 | 課題②：causal mask を外す実験／担当の問いの実験を始める |
 | 11/13（第7回）までに | 担当の問いの実験を seed を変えて複数回行い、結果を `results/` に残す／（余力があれば）覗く：注意の重みを見る／最終報告のスライドを、テンプレートに書き込む |
@@ -31,18 +31,32 @@
 ## グループのリポジトリの作り方
 
 1. グループの代表者が、このページ右上の **Use this template** → **Create a new repository** を押す
-2. Owner は代表者のアカウント、Repository name はグループ名などにする
-3. 公開範囲は Public でも Private でもよい。Private にした場合は、Kaggle で clone するのにトークンが必要（ノートブック冒頭の説明を参照）
-4. 作ったリポジトリの Settings → Collaborators から、メンバー全員を招待する
+2. Owner は代表者のアカウント、Repository name はグループ名などにし、**Private** を選ぶ
+3. 作ったリポジトリの Settings → Collaborators から、メンバー全員と教員（`yukinobaba`）を招待する。招待された人はメールか GitHub の通知から承認する
 
 以降の変更（予測、モデルの変更、実験結果）は、すべてこのグループのリポジトリにプルリクエストで入れます。
+リポジトリは Private なので、他のグループからは予測や結果は見えません。
+
+## Kaggle から Private リポジトリを読むためのトークン
+
+Kaggle のノートブックはグループのリポジトリを clone して使います。Private リポジトリを読むには、各自の GitHub のトークンが必要です。
+
+1. GitHub の Settings → Developer settings → Personal access tokens → **Tokens (classic)** → Generate new token (classic)
+   - Note：`kaggle-mlapp2026` など
+   - Expiration：30 days（演習2が終わるまで使えればよい）
+   - Scopes：**repo** にだけチェック
+   - リポジトリの持ち主（代表者）は、代わりに Fine-grained token（対象をグループのリポジトリだけ、Contents を Read-only）でもよい。他のメンバーは、他人のリポジトリを Fine-grained token で選べないので classic を使う
+2. 表示されたトークンをコピーする（この画面を閉じると二度と表示されない）
+3. Kaggle のノートブックで「Add-ons」→「Secrets」→「Add Secret」を開き、Label を `GITHUB_TOKEN`、Value をトークンにして保存し、このノートブックで使うようにチェックを入れる
+
+トークンはパスワードと同じです。ノートブックのコードやリポジトリ、チャットに貼らないでください。演習2が終わったら GitHub の同じ画面から削除してください。
 
 ## Kaggle での実行
 
 1. Kaggle アカウントの電話番号認証を済ませる（GPU を使うのに必要）
 2. `kaggle_notebook.ipynb` をダウンロードし、Kaggle にアップロードする（Kaggle の「Create」→「New Notebook」→「File」→「Import Notebook」）
 3. 右側の「Session options」で Accelerator を **GPU T4 x2** にし、Internet を on にする
-4. ノートブック先頭の `REPO_URL` をグループのリポジトリにする
+4. ノートブック先頭の `REPO_URL` をグループのリポジトリにする（`USE_TOKEN = True` のまま）
 5. 学習は **Save Version（Save & Run All）** で実行する。対話セッションは途中で止まることがある。結果は保存したバージョンの「Output」から取り出せる
 
 GPU は1人あたり週30時間まで使えます。標準構成 S の学習1回（5,000 step）は約5〜6分です（最初の数十秒はコンパイル）。
