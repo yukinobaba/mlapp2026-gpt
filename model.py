@@ -52,7 +52,7 @@ class SelfAttention(nn.Module):
 
 
 class MLP(nn.Module):
-    """位置ごとの全結合2層（間に GELU）"""
+    """各位置のベクトルを、他の位置を見ずに変換する全結合2層（間に GELU）"""
 
     def __init__(self, cfg):
         super().__init__()
