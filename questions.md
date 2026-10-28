@@ -7,7 +7,7 @@
 
 - **基準**：課題①の標準構成 S（`base_seed0`、`base_seed1`）。基準と同じ設定（5,000 step、batch 64 など）で、変えるのは比較したい1点だけにする
 - **seed**：各条件で seed を2本以上回す。差を主張するときは、seed によるばらつきより大きいことを示す
-- **比べ方**：`metrics.json` の `full_val_loss`、`log.csv` の loss の推移、`samples.txt` の生成文。余力があれば `attention.py` で注意の重みも見る
+- **比べ方**：`metrics.json` の `full_val_loss`、`log.csv` の loss の推移、`samples.txt` の生成文。余力があれば `attention.py` でattention weightも見る
 - **進め方**：比較ごとに、実験の前に予測を `predictions/` にプルリクエストで提出し、そのあとでモデルや設定の変更をプルリクエストで入れる
 - **計算時間**：標準構成 S は1本あたり約6分。T4 2枚で2本ずつ並列に回せる。必須の比較（3〜4つ）×seed 2本で、GPU の時間はグループで合計1〜2時間（1人あたり週30時間の範囲で十分に収まる）
 
@@ -17,8 +17,8 @@ Self-attention の計算は、そのままでは文字の並び順を直接は�
 
 **必須の比較**（1人1つを担当）
 
-1. 位置埋め込みなし と 学習型（基準）
-2. sin・cos で決めた固定のベクトル（元の Transformer の方式）と 学習型
+1. 位置埋め込みなし と learned な位置埋め込み（基準）
+2. sin・cos で決めた固定のベクトル（元の Transformer の方式）と learned
 3. 文脈の長さ 128・512 と 256（基準）
 
 **発展**

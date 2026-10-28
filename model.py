@@ -11,7 +11,7 @@ import torch.nn.functional as F
 
 
 class SelfAttention(nn.Module):
-    """マルチヘッドのSelf-attention（causal mask付き）"""
+    """Multi-head の Self-attention（causal mask付き）"""
 
     def __init__(self, cfg):
         super().__init__()
@@ -26,7 +26,7 @@ class SelfAttention(nn.Module):
         # causal mask：位置 i は位置 0〜i だけを見られる（下三角が1の行列）
         mask = torch.tril(torch.ones(cfg.block_size, cfg.block_size))
         self.register_buffer("mask", mask.view(1, 1, cfg.block_size, cfg.block_size))
-        self.last_attn = None  # 「覗く」ために、直近の注意の重みを残せるようにする
+        self.last_attn = None  # 「覗く」ために、直近の attention weight を残せるようにする
         self.keep_attn = False
 
     def forward(self, x):
