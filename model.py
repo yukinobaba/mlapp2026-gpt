@@ -124,5 +124,5 @@ class GPT(nn.Module):
         return idx
 
     def num_params(self):
-        """パラメータ数（位置埋め込みは除く）"""
+        """パラメータ数（位置の埋め込みは除く）"""
         return sum(p.numel() for p in self.parameters()) - self.pos_emb.weight.numel()
