@@ -43,13 +43,13 @@ Kaggle のノートブックはグループのリポジトリを clone して使
 
 1. https://github.com/settings/tokens/new?scopes=repo&description=kaggle-mlapp2026 を開く（GitHub の Settings → 左メニューいちばん下の Developer settings → Personal access tokens → **Tokens (classic)** → Generate new token (classic) と同じ画面）
    - Note：`kaggle-mlapp2026` など
-   - Expiration：30 days（演習2が終わるまで使えればよい）
+   - Expiration：30 days（本演習が終わるまで使えればよい）
    - Scopes：**repo** にだけチェック
    - リポジトリの持ち主（代表者）は、代わりに Fine-grained token（対象をグループのリポジトリだけ、Contents を Read-only）でもよい。他のメンバーは、他人のリポジトリを Fine-grained token で選べないので classic を使う
 2. いちばん下の Generate token を押し、表示されたトークンをコピーする（この画面を離れると二度と表示されない）
 3. Kaggle のノートブックの編集画面で、上のメニューの「Add-ons」→「Secrets」→「Add Secret」を開き、Label を `GITHUB_TOKEN`、Value をトークンにして保存する。一覧の `GITHUB_TOKEN` にチェックが入っている（このノートブックで使える）ことを確かめる
 
-トークンはパスワードと同じです。ノートブックのコードやリポジトリ、チャットに貼らないでください。演習2が終わったら GitHub の同じ画面から削除してください。
+トークンはパスワードと同じです。ノートブックのコードやリポジトリ、チャットに貼らないでください。本演習が終わったら GitHub の同じ画面から削除してください。
 
 ## Kaggle での実行
 
