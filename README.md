@@ -69,7 +69,7 @@ T4 は2枚使えるので、seed 違いなどの2本を同時に学習させら�
 1. 標準構成 S をゼロから学習させる：`python train.py --name base_seed0`
 2. `runs/base_seed0/samples.txt` で、途中の step（100, 300, 1000, 2000, 3000, 5000）の生成文を比べる。何 step 目で単語らしく、文らしくなるか
 3. `runs/base_seed0/log.csv` で train loss と val loss の推移を見る
-4. seed だけを変えてもう一度学習し（`--seed 1`）、`metrics.json` の `full_val_loss` のばらつきを確かめる。このばらつきが、今後「差がある」と言えるかの基準になる
+4. seed だけを変えてもう一度学習し（`--seed 1`）、`metrics.json` の `full_val_loss` のばらつきを確かめる。このばらつきが、今後「差がある」と言えるかの目安になる
 
 ## 課題②：causal mask を外す（予想は11/6までに提出、実験は11/13の発表まで）
 
