@@ -16,7 +16,7 @@ class Config:
     n_layer: int = 4
     n_head: int = 4
     n_embd: int = 256
-    block_size: int = 256      # 文脈長（文字数）
+    block_size: int = 256      # 文脈の長さ（文字数）
     vocab_size: int = 4000
     dropout: float = 0.1
     # 学習
