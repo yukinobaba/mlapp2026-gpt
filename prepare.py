@@ -11,6 +11,8 @@ from collections import Counter
 
 import numpy as np
 
+DATASET_REVISION = "42a9c9c0f1d67e6a5554d9bea4201973dc9b049c"
+
 
 def main():
     ap = argparse.ArgumentParser()
@@ -25,7 +27,8 @@ def main():
         return
 
     from datasets import load_dataset
-    ds = load_dataset("globis-university/aozorabunko-clean", split="train")
+    # 配布元が更新しても同じデータになるよう、バージョン（2023-10-27 のコミット）を固定する
+    ds = load_dataset("globis-university/aozorabunko-clean", split="train", revision=DATASET_REVISION)
     metas = ds["meta"]
     key = next(k for k in metas[0] if "文字遣い" in k)  # 「文字遣い種別」
     texts = [t for t, m in zip(ds["text"], metas) if m.get(key) == "新字新仮名"]
@@ -54,7 +57,7 @@ def main():
         ids.tofile(f"{args.out}/{name}.bin")
     with open(f"{args.out}/vocab.json", "w", encoding="utf-8") as f:
         json.dump({"itos": ["<unk>"] + chars}, f, ensure_ascii=False)
-    info = dict(works=len(picked), val_works=n_val, train_chars=len(train_txt),
+    info = dict(dataset_revision=DATASET_REVISION, works=len(picked), val_works=n_val, train_chars=len(train_txt),
                 val_chars=len(val_txt), vocab_size=args.vocab_size, coverage=round(coverage, 5))
     with open(f"{args.out}/info.json", "w", encoding="utf-8") as f:
         json.dump(info, f, ensure_ascii=False, indent=1)
